@@ -1,8 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BubbleController : MonoBehaviour
 {
+    public NPCController NPCController;
+
     public RectTransform bubbleImage;
 
     public Animator bubbleAnim;//bubble alert anim
@@ -34,12 +35,15 @@ public class BubbleController : MonoBehaviour
     {
         if (!bubbleAnim.GetBool("isEaten"))
         {
-            alertValue += Time.deltaTime;
-            redBubbleAnim.SetFloat("alertValue", alertValue / 100);
-
             if (alertValue >= 100)
             {
                 //TODO: SPREAD RED BUBBLE
+                NPCController.EnableRadar();
+            }
+            else
+            {
+                alertValue += Time.deltaTime;
+                redBubbleAnim.SetFloat("alertValue", alertValue / 100);
             }
         }
     }

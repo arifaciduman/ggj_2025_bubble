@@ -5,8 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    //TODO: BURASI AÇILACAK PLAYER ATANINCA
-    //public PlayerController player;
+    public PlayerController player;
 
     public Vibe vibe;
     public Danger danger;
@@ -76,20 +75,20 @@ public class Vibe
             else
             {
                 currentValue = maxValue;
-                //TODO: BURASI AÇILACAK PLAYER ATANINCA
-                //if (!_isDazeState)
-                //{
-                //    reduceMultiplier += 3.5f;
-                //    player.StartDazeState();
-                //    void DelayDazeEnding()
-                //    {
-                //        player.EndDazeState();
-                //        _isDazeState = false;
-                //        reduceMultiplier -= 3.5f;
-                //    }
-                //    DelayUtility.ExecuteAfterSeconds(DelayDazeEnding, 2f);
-                //    _isDazeState = true;
-                //}
+                
+                if (!_isDazeState)
+                {
+                    reduceMultiplier += 3.5f;
+                    GameManager.Instance.player.StartDazeState();
+                    void DelayDazeEnding()
+                    {
+                        GameManager.Instance.player.EndDazeState();
+                        _isDazeState = false;
+                        reduceMultiplier -= 3.5f;
+                    }
+                    DelayUtility.ExecuteAfterSeconds(DelayDazeEnding, 2f);
+                    _isDazeState = true;
+                }
             }
         }
         else
@@ -101,9 +100,7 @@ public class Vibe
 
     private float CalculatedMultiplier()
     {
-        //TODO: BURASI AÇILACAK PLAYER ATANINCA
-        //return reduceMultiplier * player.stateVibeReduceMultiplier;
-        return reduceMultiplier;
+        return reduceMultiplier * GameManager.Instance.player.stateVibeReduceMultiplier;
     }
 }
 

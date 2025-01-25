@@ -51,24 +51,25 @@ public class PlayerMovement : MonoBehaviour
 
         if (horizontalInput == 0 && verticalInput == 0)
         {
-            //GameManager.Instance.playerController.playerState = PlayerController.PlayerState.Idle;
-            //GameManager.Instance.playerController.stateVibeReduceMultiplier = 1f;
+            RunOrSprint(PlayerController.PlayerState.Idle, false);
         }
         else
         {
             if (Input.GetKey(sprintKey))
             {
-                isSprinting = true;
-                //GameManager.Instance.playerController.playerState = PlayerController.PlayerState.Sprint;
-                //GameManager.Instance.playerController.stateVibeReduceMultiplier = 5f;
+                RunOrSprint(PlayerController.PlayerState.Sprint, true);
             }
             else
             {
-                isSprinting = false;
-                //GameManager.Instance.playerController.playerState = PlayerController.PlayerState.Walk;
-                //GameManager.Instance.playerController.stateVibeReduceMultiplier = 3f;
+                RunOrSprint(PlayerController.PlayerState.Walk, false);
             }
         }
+    }
+
+    private void RunOrSprint(PlayerController.PlayerState state, bool isSprinting)
+    {
+        this.isSprinting = isSprinting;
+        GameManager.Instance.player.state = state;
     }
 
     private void MovePlayer()

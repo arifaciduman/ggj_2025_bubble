@@ -13,8 +13,22 @@ public class PlayerController : MonoBehaviour
         Walk,
         Sprint
     }
-    
     public PlayerState state;
+
+    private void Update()
+    {
+        stateVibeReduceMultiplier = SetStateMultiplier();
+    }
+
+    private float SetStateMultiplier()
+    {
+        return (int)state switch
+        {
+            1 => 3,
+            2 => 5,
+            _ => 1
+        };
+    }
 
     public void EndDazeState()
     {

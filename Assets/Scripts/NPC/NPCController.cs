@@ -10,7 +10,7 @@ public class NPCController : MonoBehaviour
     public GameObject afterPopZone;
     public GameObject patrolZone;//random açılacak olan patrol küresi
 
-    private float _alertMultipler = 1f;//affects the chance of alert bubble
+    private float _alertMultipler = .1f;//affects the chance of alert bubble
     private float _alertValue;//value that fills alert's current level
     //Summon bubble interval
     private float _minInterval = 4f;
@@ -25,19 +25,40 @@ public class NPCController : MonoBehaviour
 
     private void Update()
     {
-        
+        AfterAlert();
+    }
+
+    private void AfterAlert()
+    {
+        if (_isAlerted)
+        {
+            BubbleController.SetRedBubbleAnimMotion(GetCurrentMaxValue());
+        }
     }
 
     private void SummonBubble()
     {
-        DelayUtility.ExecuteAfterSeconds(BubbleController.EnableBubble, GetInterval());
+        void ResetAlertEnableBubble()
+        {
+            _isAlerted = false;
+            _alertValue = 0;
+            BubbleController.EnableBubble();
+        }
+        DelayUtility.ExecuteAfterSeconds(ResetAlertEnableBubble, GetInterval());
     }
 
     public void AfterEatingBubble()
     {
         BubbleController.StartEatenAnim();
         GameManager.Instance.vibe.currentValue += 15f;
+        EnableRadar();
         SummonBubble();
+    }
+
+    public void EnableRadar()
+    {
+        afterPopZone.SetActive(true);
+        DelayUtility.ExecuteAfterFrames(RandomizeAlert, 2);
     }
 
     /// <summary>
@@ -55,6 +76,35 @@ public class NPCController : MonoBehaviour
     }
 
     public float CalculateMutiplier()
+    {
+        return _alertMultipler * GameManager.Instance.danger.currentDanger;
+    }
+
+    private void RandomizeAlert()
+    {
+        if (otherNearNPCs.Count > 0)
+        {
+            int rand = Random.Range(0, otherNearNPCs.Count);
+            float chance = Random.Range(0f, 1f);
+            if (chance <= GetCurrentMaxChance())
+            {
+                otherNearNPCs[rand]._isAlerted = true;
+            }
+        }
+        void DelayReset()
+        {
+            otherNearNPCs.Clear();
+            afterPopZone.SetActive(false);
+        }
+        DelayUtility.ExecuteAfterFrames(DelayReset, 2, true);
+    }
+
+    private float GetCurrentMaxValue()
+    {
+        return _alertValue + (_alertMultipler * GameManager.Instance.danger.currentDanger);
+    }
+
+    private float GetCurrentMaxChance()
     {
         return _alertMultipler * GameManager.Instance.danger.currentDanger;
     }
