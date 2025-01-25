@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,27 +17,43 @@ public class AudioManager : MonoBehaviour
 
     public List<AudioClip> adaptiveClips = new();
 
-    public void PlayAnotherLoop()
+    private bool _isFirstOne, _isSecondOne;
+
+    private void Start()
     {
-
-        if (mainASource.isPlaying && mainASource.clip.length * .75f <= mainASource.time)
+        StartCoroutine(PlayAnotherLoop());
+    }
+    public IEnumerator PlayAnotherLoop()
+    {
+        while (true)
         {
-            if (!secondASource.isPlaying)
+            if (mainASource.isPlaying && mainASource.clip.length - mainASource.time <= 0.2f)
             {
-                secondASource.clip = GetAudioClip();
-                secondASource.Play();
-                secondASource.time = 0;
+                if (!secondASource.isPlaying && !_isSecondOne)
+                {
+                    secondASource.clip = GetAudioClip();
+                    secondASource.Play();
+                    secondASource.time = 0;
+                    _isSecondOne = true;
+                    yield return new WaitForSeconds(mainASource.clip.length * 0.75f);
+                    _isSecondOne = false;
+                }
             }
-        }
 
-        if (secondASource.isPlaying && secondASource.clip.length * .75f <= secondASource.time)
-        {
-            if (!mainASource.isPlaying)
+            if (secondASource.isPlaying && secondASource.clip.length - secondASource.time <= 0.2f)
             {
-                mainASource.clip = GetAudioClip();
-                mainASource.Play();
-                mainASource.time = 0;
+                if (!mainASource.isPlaying && !_isFirstOne)
+                {
+                    mainASource.clip = GetAudioClip();
+                    mainASource.Play();
+                    mainASource.time = 0;
+                    _isFirstOne = true;
+                    yield return new WaitForSeconds(secondASource.clip.length * 0.75f);
+                    _isFirstOne = false;
+                }
             }
+
+            yield return null;
         }
     }
 

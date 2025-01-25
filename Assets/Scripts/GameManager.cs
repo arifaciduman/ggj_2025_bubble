@@ -74,7 +74,7 @@ public class Vibe
     public float currentValue = 50;
     public float maxValue = 100f;
     public float reduceValue = .95f;
-    public float reduceMultiplier = .4f;
+    public float reduceMultiplier = .45f;
 
     public bool isFull;
     public bool isHungry;
@@ -94,18 +94,15 @@ public class Vibe
                     if (currentValue <= 30)
                     {
                         _audioManager.musicState = AudioManager.MusicState.danger;
-                        _audioManager.PlayAnotherLoop();
                     }
                     else 
                     {
                         _audioManager.musicState = AudioManager.MusicState.normal;
-                        _audioManager.PlayAnotherLoop();
                     }
                 }
                 else
                 {
                     _audioManager.musicState = AudioManager.MusicState.daze;
-                    _audioManager.PlayAnotherLoop();
                 }
 
                 currentValue -= reduceValue * CalculatedMultiplier();
