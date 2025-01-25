@@ -1,4 +1,6 @@
 using System;
+using MoreMountains.Feedbacks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +9,8 @@ public class CanvasManager : MonoBehaviour
     public Image vibeFillImage;
     public GameObject starvationPanel;
     public GameObject caughtPanel;
+
+    public TMP_Text scoreText;
 
     private void Start()
     {
@@ -27,5 +31,10 @@ public class CanvasManager : MonoBehaviour
     public void SetCaughtPanelActive()
     {
         caughtPanel.SetActive(true);
+    }
+
+    public void IncreaseScore(int amount)
+    {
+        scoreText.text = amount.ToString();
     }
 }
