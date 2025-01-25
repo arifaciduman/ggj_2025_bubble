@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NPC
+  m_Name: DemonEyes
   m_Shader: {fileID: -6465566751694194690, guid: 7fede012d23934111be4272735040a6f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -16,7 +16,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 5000
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
@@ -24,12 +24,8 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Albedo_Texture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _Grunge_Textures:
-        m_Texture: {fileID: 2800000, guid: c95b19c72a56246a28d82f8a468520ba, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -46,16 +42,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Grunge_Intensity: 1
-    - _QueueControl: 0
+    - _Grunge_Intensity: 0
+    - _QueueControl: 1
     - _QueueOffset: 0
-    - _Stutter_Speed: 5
+    - _Stutter_Speed: 1
     m_Colors:
-    - _Base_Color: {r: 0, g: 0, b: 0, a: 0}
-    - _Grunge_Color: {r: 0, g: 0, b: 0, a: 0}
+    - _Base_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Grunge_Color: {r: 0.4433962, g: 0.40816623, b: 0.28235137, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &679335030330037202
+--- !u!114 &1413799468669461206
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
