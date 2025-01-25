@@ -7,13 +7,14 @@ public class GameManager : MonoBehaviour
 
     public PlayerController player;
     public CanvasManager canvasManager;
+    public AudioManager audioManager;
 
     public Vibe vibe;
     public Danger danger;
 
     public bool isGameOver;
 
-    private float _satiatedTimer;//if more than designated value, isGameOver true
+    //private float _satiatedTimer;//if more than designated value, isGameOver true
     private float _reduceVibeTimer;
     
     private void Awake() 
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         ReduceVibe();
-        Hunger();
+        //Hunger();
     }
 
     private void ReduceVibe()
@@ -49,23 +50,22 @@ public class GameManager : MonoBehaviour
             _reduceVibeTimer = 0;
         }
     }
-    private void Hunger()
-    {
-        if (vibe.isHungry)
-        {
-            _satiatedTimer += Time.deltaTime;
+    //private void Hunger()
+    //{
+    //    if (vibe.isHungry && !isGameOver)
+    //    {
+    //        _satiatedTimer += Time.deltaTime;
 
-            if (_satiatedTimer >= 5f)
-            {
-                isGameOver = true;
-                Debug.Log("dead");
-            }
-        }
-        else
-        {
-            _satiatedTimer = 0f;
-        }
-    }
+    //        if (_satiatedTimer >= 5f)
+    //        {
+    //            isGameOver = true;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        _satiatedTimer = 0f;
+    //    }
+    //}
 }
 
 [Serializable]
@@ -73,8 +73,8 @@ public class Vibe
 {
     public float currentValue = 50;
     public float maxValue = 100f;
-    public float reduceValue = 1f;
-    public float reduceMultiplier = .45f;
+    public float reduceValue = .95f;
+    public float reduceMultiplier = .4f;
 
     public bool isFull;
     public bool isHungry;
@@ -86,9 +86,28 @@ public class Vibe
         
         if(currentValue > 0)
         {
+            var _audioManager = GameManager.Instance.audioManager;
             if (currentValue < maxValue || _isDazeState)
             {
-                //Debug.Log($"current reduce: {reduceValue * CalculatedMultiplier() * Time.deltaTime}");
+                if (!_isDazeState)
+                {
+                    if (currentValue <= 30)
+                    {
+                        _audioManager.musicState = AudioManager.MusicState.danger;
+                        _audioManager.PlayAnotherLoop();
+                    }
+                    else 
+                    {
+                        _audioManager.musicState = AudioManager.MusicState.normal;
+                        _audioManager.PlayAnotherLoop();
+                    }
+                }
+                else
+                {
+                    _audioManager.musicState = AudioManager.MusicState.daze;
+                    _audioManager.PlayAnotherLoop();
+                }
+
                 currentValue -= reduceValue * CalculatedMultiplier();
                 GameManager.Instance.canvasManager.SetVibeFill();
                 isHungry = false;
@@ -101,13 +120,13 @@ public class Vibe
                 
                 if (!_isDazeState)
                 {
-                    reduceMultiplier += 7.5f;
+                    reduceMultiplier += 8f;
                     GameManager.Instance.player.StartDazeState();
                     void DelayDazeEnding()
                     {
                         GameManager.Instance.player.EndDazeState();
                         _isDazeState = false;
-                        reduceMultiplier -= 7.5f;
+                        reduceMultiplier -= 8f;
                     }
                     DelayUtility.ExecuteAfterSeconds(DelayDazeEnding, 4f, true);
                     _isDazeState = true;
@@ -116,9 +135,11 @@ public class Vibe
         }
         else
         {
-            currentValue = 0;
-            GameManager.Instance.canvasManager.SetVibeFill();
-            isHungry = true;
+            GameManager.Instance.isGameOver = true;
+            Debug.Log("dead from hunger");
+            //currentValue = 0;
+            //GameManager.Instance.canvasManager.SetVibeFill();
+            //isHungry = true;
         }
     }
 
@@ -131,7 +152,7 @@ public class Vibe
 [Serializable]
 public class Danger
 {
-    public float currentDanger = .2f;
+    public float currentDanger = .18f;
 
     public void RemoveDanger()
     {
@@ -141,6 +162,6 @@ public class Danger
     public void AddDanger()
     {
         currentDanger++;
-        DelayUtility.ExecuteAfterSeconds(RemoveDanger, 5f);
+        DelayUtility.ExecuteAfterSeconds(RemoveDanger, 3f);
     }
 }

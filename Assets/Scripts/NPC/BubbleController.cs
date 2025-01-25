@@ -22,16 +22,19 @@ public class BubbleController : MonoBehaviour
     {
         bubbleAnim.SetBool("isActivated", true);
         bubbleImage.localScale = Vector3.one;
-
+        bubbleCollider.enabled = true;
+        _alertValue = 0;
         void DelayDialogue()
         {
             dialogueText.localScale = Vector3.one;
-            dialogueTextAnimations.PlayNormalAnimation();   
+            dialogueTextAnimations.PlayNormalAnimation();
+            if (NPCController.isAlerted)
+            {
+                bubbleImage.localScale = Vector3.zero;
+                bubbleRedImage.localScale = Vector3.one;
+            }
         }
-        
         DelayUtility.ExecuteAfterSeconds(DelayDialogue, bubbleOpening.length, true);
-        bubbleCollider.enabled = true;
-        _alertValue = 0;
     }
 
     public void StartEatenAnim()
@@ -66,9 +69,10 @@ public class BubbleController : MonoBehaviour
             }
             else
             {
+                bubbleImage.localScale = Vector3.zero;
                 bubbleRedImage.localScale = Vector3.one;
                 
-                _alertValue += Time.deltaTime * .75f;
+                _alertValue += Time.deltaTime * .5f;
                 //print($"alertValue: {_alertValue}");
                 
                 redBubbleAnim.SetFloat("alertValue", _alertValue);

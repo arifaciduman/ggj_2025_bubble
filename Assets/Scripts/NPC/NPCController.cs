@@ -55,7 +55,7 @@ public class NPCController : MonoBehaviour
         if (!canPatrol && BubbleController.bubbleImage.localScale == Vector3.one 
                        && BubbleController.bubbleRedImage.localScale != Vector3.one)
         {
-            if (_patrolTimer < Random.Range(5.0f, 15.0f))
+            if (_patrolTimer < Random.Range(15.0f, 25.0f))
             {
                 _patrolTimer += Time.deltaTime;
             }
@@ -98,7 +98,7 @@ public class NPCController : MonoBehaviour
     public void AfterEatingBubble()
     {
         BubbleController.StartEatenAnim();
-        GameManager.Instance.vibe.currentValue += 15f;
+        GameManager.Instance.vibe.currentValue += 10f;
         if (isAlerted)
         {
             GameManager.Instance.danger.currentDanger--;
@@ -136,7 +136,7 @@ public class NPCController : MonoBehaviour
             {
                 float chance = Random.Range(0.0f, 1.0f);
 
-                if (chance <= GetCurrentMaxChance() / 2)
+                if (chance <= GetCurrentMaxChance())
                 {
                     otherNearNPCs[rand].isAlerted = true;
                     GameManager.Instance.danger.currentDanger++;
