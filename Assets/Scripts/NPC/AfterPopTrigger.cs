@@ -13,23 +13,37 @@ public class AfterPopTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("NPC") && other != _parent)
+        if (NPCController.tryPatrol)
         {
-            if (!NPCController.otherNearNPCs.Contains(other.GetComponent<NPCController>()))
+            if (!other.CompareTag("Player"))
             {
-                NPCController.otherNearNPCs.Add(other.GetComponent<NPCController>());
+                NPCController.canPatrol = true;
+                NPCController.MMF_Player.PlayFeedbacks();
+                void DelayResettingBools()
+                {
+                    NPCController.tryPatrol = false;
+                    NPCController.canPatrol = false;
+                }
+                DelayUtility.ExecuteAfterSeconds(DelayResettingBools, NPCController.MMF_Player.TotalDuration);
+                NPCController.afterPopZone.SetActive(false);
+            }
+            else
+            {
+                NPCController.tryPatrol = false;
+                NPCController.canPatrol = false;
+                NPCController.patrolZone.SetActive(false);
+                NPCController.afterPopZone.SetActive(false);
+            }
+        }
+        else
+        {
+            if (other.CompareTag("NPC") && other != _parent)
+            {
+                if (!NPCController.otherNearNPCs.Contains(other.GetComponent<NPCController>()))
+                {
+                    NPCController.otherNearNPCs.Add(other.GetComponent<NPCController>());
+                }
             }
         }
     }
-
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (other.CompareTag("NPC") && other != _parent)
-    //    {
-    //        if (!NPCController.otherNearNPCs.Contains(other.GetComponent<NPCController>()))
-    //        {
-    //            NPCController.otherNearNPCs.Add(other.GetComponent<NPCController>());
-    //        }
-    //    }
-    //}
 }

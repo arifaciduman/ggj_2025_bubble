@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 
 public class NPCController : MonoBehaviour
 {
@@ -10,16 +11,27 @@ public class NPCController : MonoBehaviour
     public GameObject afterPopZone;
     public GameObject patrolZone;//random açılacak olan patrol küresi
 
+    public MMF_Player MMF_Player;//TODO: Feedbacks => SetActive(true) - ToDestination 15f - Pause 5sn -  ToDestination 1.5f - SetActive(false)
+
     private float _alertMultipler = .1f;//affects the chance of alert bubble
     //Summon bubble interval
     private float _minInterval = 4f;
     private float _maxInterval = 7.5f;
+    private float _patrolTimer;
 
     public bool isAlerted;//kırmızı bubble animasyonu için alertValue artmaya başlasın mı?
     private bool _isRandomized;
-    
+    public bool tryPatrol;
+    public bool canPatrol;
+    private bool _enablePopZoneForPatrol;
+
     public Animator anim;
     private float currentDelayCd;
+
+    private void Awake()
+    {
+        PlayNextAnim();
+    }
 
     private void Start()
     {
@@ -34,6 +46,33 @@ public class NPCController : MonoBehaviour
 
         PlayNextAnim();
 
+        TryPatroling();
+    }
+
+    //TODO: PATROL
+    private void TryPatroling()
+    {
+        if (!canPatrol && BubbleController.bubbleImage.localScale == Vector3.one /*&& BubbleController.bubbleRedImage.localScale != Vector3.one*/)//TODO: Comment kısmı açılacak!
+        {
+            if (_patrolTimer < Random.Range(5.0f, 15.0f))
+            {
+                _patrolTimer += Time.deltaTime;
+            }
+            else
+            {
+                tryPatrol = true;
+
+                if (!_enablePopZoneForPatrol)
+                {
+                    EnableRadar();
+                    _enablePopZoneForPatrol = true;
+                }
+            }
+        }
+        else
+        {
+            _patrolTimer = 0;
+        }
     }
 
     //Alarm çaldıktan sonrası
