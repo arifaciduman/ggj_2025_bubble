@@ -38,6 +38,6 @@ public class PlayerController : MonoBehaviour
     public void StartDazeState()
     {
         isDazed = true;
-        playerAC.SetBool("isDazed", true);
+        //playerAC.SetBool("isDazed", true);
     }
 }

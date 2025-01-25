@@ -17,6 +17,7 @@ public class NPCController : MonoBehaviour
     private float _maxInterval = 7.5f;
 
     public bool isAlerted;//kırmızı bubble animasyonu için alertValue artmaya başlasın mı?
+    private bool _isRandomized;
 
     private void Start()
     {
@@ -26,6 +27,8 @@ public class NPCController : MonoBehaviour
     private void Update()
     {
         AfterAlert();
+
+        RandomizeAlert();
     }
 
     //Alarm çaldıktan sonrası
@@ -59,7 +62,7 @@ public class NPCController : MonoBehaviour
     public void EnableRadar()
     {
         afterPopZone.SetActive(true);
-        DelayUtility.ExecuteAfterFrames(RandomizeAlert, 2);
+        //RandomizeAlert();
     }
 
     /// <summary>
@@ -78,21 +81,26 @@ public class NPCController : MonoBehaviour
 
     private void RandomizeAlert()
     {
-        if (otherNearNPCs.Count > 0)
+        if (otherNearNPCs.Count > 0 && !_isRandomized)
         {
             int rand = Random.Range(0, otherNearNPCs.Count);
-            float chance = Random.Range(0f, 1f);
+            float chance = Random.Range(0.0f, 1.0f);
+            
             if (chance <= GetCurrentMaxChance())
             {
+                print("got the chance to alert");
                 otherNearNPCs[rand].isAlerted = true;
             }
+            _isRandomized = true;
+
+            void DelayReset()
+            {
+                otherNearNPCs.Clear();
+                afterPopZone.SetActive(false);
+                _isRandomized = false;
+            }
+            DelayUtility.ExecuteAfterSeconds(DelayReset, .5f, true);
         }
-        void DelayReset()
-        {
-            otherNearNPCs.Clear();
-            afterPopZone.SetActive(false);
-        }
-        DelayUtility.ExecuteAfterFrames(DelayReset, 2, true);
     }
 
     private float GetCurrentMaxValue()

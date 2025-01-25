@@ -38,13 +38,14 @@ public class GameManager : MonoBehaviour
 
     private void Hunger()
     {
-        if (vibe.isSatiated)
+        if (vibe.isHungry)
         {
             _satiatedTimer += Time.deltaTime;
 
             if (_satiatedTimer >= 5f)
             {
                 isGameOver = true;
+                Debug.Log("dead");
             }
         }
         else
@@ -54,15 +55,16 @@ public class GameManager : MonoBehaviour
     }
 }
 
+[Serializable]
 public class Vibe
 {
-    public float currentValue = 0f;
+    public float currentValue = 25f;
     public float maxValue = 100f;
     public float reduceValue = 1f;
     public float reduceMultiplier = 1f;
 
     public bool isFull;
-    public bool isSatiated;
+    public bool isHungry;
     private bool _isDazeState;
 
     public void CurrentVibeValue()
@@ -72,7 +74,7 @@ public class Vibe
             if (currentValue < maxValue || _isDazeState)
             {
                 currentValue -= reduceValue * CalculatedMultiplier() * Time.deltaTime;
-                isSatiated = false;
+                isHungry = false;
                 isFull = false;
             }
             else
@@ -81,15 +83,15 @@ public class Vibe
                 
                 if (!_isDazeState)
                 {
-                    reduceMultiplier += 3.5f;
+                    reduceMultiplier += 7.5f;
                     GameManager.Instance.player.StartDazeState();
                     void DelayDazeEnding()
                     {
                         GameManager.Instance.player.EndDazeState();
                         _isDazeState = false;
-                        reduceMultiplier -= 3.5f;
+                        reduceMultiplier -= 7.5f;
                     }
-                    DelayUtility.ExecuteAfterSeconds(DelayDazeEnding, 2f);
+                    DelayUtility.ExecuteAfterSeconds(DelayDazeEnding, 4f);
                     _isDazeState = true;
                 }
             }
@@ -97,7 +99,7 @@ public class Vibe
         else
         {
             currentValue = 0;
-            isSatiated = true;
+            isHungry = true;
         }
     }
 
@@ -107,6 +109,7 @@ public class Vibe
     }
 }
 
+[Serializable]
 public class Danger
 {
     public float currentDanger;
