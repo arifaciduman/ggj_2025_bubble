@@ -7,7 +7,8 @@ public class PatrolTrigger : MonoBehaviour
         if (other.CompareTag("Player") && !GameManager.Instance.vibe.isFull)
         {
             GameManager.Instance.isGameOver = true;
-            GameManager.Instance.vibe.currentValue = 0;
+            GameManager.Instance.vibe.currentValue = -1;
+            Debug.Log("dead from patrol");
         }
     }
 }

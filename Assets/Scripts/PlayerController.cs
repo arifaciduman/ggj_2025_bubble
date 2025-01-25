@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 
     public PlayerMovement playerMovement;
     
-    public float stateVibeReduceMultiplier = .75f;
+    public float stateVibeReduceMultiplier = .5f;
 
     public enum PlayerState
     {
@@ -27,8 +27,8 @@ public class PlayerController : MonoBehaviour
         return (int)state switch
         {
             1 => 1.25f,
-            2 => 3.5f,
-            _ => .75f
+            2 => 2f,
+            _ => .5f
         };
     }
 
