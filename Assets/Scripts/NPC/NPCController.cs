@@ -16,8 +16,12 @@ public class NPCController : MonoBehaviour
     private float _minInterval = 4f;
     private float _maxInterval = 7.5f;
 
+    public Animator anim;
+
     public bool isAlerted;//kırmızı bubble animasyonu için alertValue artmaya başlasın mı?
     private bool _isRandomized;
+
+    private float currentDelayCd;
 
     private void Start()
     {
@@ -29,6 +33,15 @@ public class NPCController : MonoBehaviour
         AfterAlert();
 
         RandomizeAlert();
+
+        currentDelayCd -= Time.deltaTime;
+        if(currentDelayCd < 0)
+        {
+            RandomAnimInt();
+            anim.SetBool("CanTransition", true);
+            currentDelayCd = Random.Range(5, 15);
+            Invoke("ResetBool", 0.5f);
+        }
     }
 
     //Alarm çaldıktan sonrası
@@ -85,7 +98,7 @@ public class NPCController : MonoBehaviour
         {
             int rand = Random.Range(0, otherNearNPCs.Count);
             float chance = Random.Range(0.0f, 1.0f);
-            
+
             if (chance <= GetCurrentMaxChance())
             {
                 print("got the chance to alert");
@@ -112,4 +125,15 @@ public class NPCController : MonoBehaviour
     {
         return _alertMultipler * GameManager.Instance.danger.currentDanger;
     }
+
+    private void RandomAnimInt()
+    {
+        anim.SetInteger("RandomAnim", Random.Range(0, 4));
+    }
+
+    private void ResetBool()
+    {
+        anim.SetBool("CanTransition", false);
+    }
+
 }
