@@ -71,7 +71,7 @@ public class Vibe
     public float currentValue = 25f;
     public float maxValue = 100f;
     public float reduceValue = 1f;
-    public float reduceMultiplier = 1f;
+    public float reduceMultiplier = .75f;
 
     public bool isFull;
     public bool isHungry;
@@ -126,7 +126,7 @@ public class Vibe
 [Serializable]
 public class Danger
 {
-    public float currentDanger = .5f;
+    public float currentDanger = .35f;
 
     public void RemoveDanger()
     {

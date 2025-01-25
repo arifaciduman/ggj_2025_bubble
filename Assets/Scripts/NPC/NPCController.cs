@@ -17,6 +17,9 @@ public class NPCController : MonoBehaviour
 
     public bool isAlerted;//kırmızı bubble animasyonu için alertValue artmaya başlasın mı?
     private bool _isRandomized;
+    
+    public Animator anim;
+    private float currentDelayCd;
 
     private void Start()
     {
@@ -28,6 +31,16 @@ public class NPCController : MonoBehaviour
         AfterAlert();
 
         RandomizeAlert();
+        
+        currentDelayCd -= Time.deltaTime;
+        if(currentDelayCd < 0)
+        {
+            RandomAnimInt();
+            anim.SetBool("CanTransition", true);
+            currentDelayCd = Random.Range(5, 15);
+            Invoke("ResetBool", 0.5f);
+        }
+
     }
 
     //Alarm çaldıktan sonrası
@@ -112,4 +125,15 @@ public class NPCController : MonoBehaviour
     {
         return _alertMultipler * GameManager.Instance.danger.currentDanger;
     }
+    
+    private void RandomAnimInt()
+    {
+        anim.SetInteger("RandomAnim", Random.Range(0, 4));
+    }
+
+    private void ResetBool()
+    {
+        anim.SetBool("CanTransition", false);
+    }
+
 }
