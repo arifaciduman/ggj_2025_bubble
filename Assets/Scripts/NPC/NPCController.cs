@@ -16,9 +16,9 @@ public class NPCController : MonoBehaviour
     private float _minInterval = 4f;
     private float _maxInterval = 7.5f;
 
-    private bool _isAlerted;//kırmızı bubble animasyonu için alertValue artmaya başlasın mı?
+    public bool isAlerted;//kırmızı bubble animasyonu için alertValue artmaya başlasın mı?
 
-    private void Awake()
+    private void Start()
     {
         SummonBubble();
     }
@@ -28,9 +28,10 @@ public class NPCController : MonoBehaviour
         AfterAlert();
     }
 
+    //Alarm çaldıktan sonrası
     private void AfterAlert()
     {
-        if (_isAlerted)
+        if (isAlerted)
         {
             BubbleController.SetRedBubbleAnimMotion(GetCurrentMaxValue());
         }
@@ -40,7 +41,7 @@ public class NPCController : MonoBehaviour
     {
         void ResetAlertEnableBubble()
         {
-            _isAlerted = false;
+            isAlerted = false;
             _alertValue = 0;
             BubbleController.EnableBubble();
         }
@@ -75,11 +76,6 @@ public class NPCController : MonoBehaviour
         return Random.Range(_minValue, _maxValue);
     }
 
-    public float CalculateMutiplier()
-    {
-        return _alertMultipler * GameManager.Instance.danger.currentDanger;
-    }
-
     private void RandomizeAlert()
     {
         if (otherNearNPCs.Count > 0)
@@ -88,7 +84,7 @@ public class NPCController : MonoBehaviour
             float chance = Random.Range(0f, 1f);
             if (chance <= GetCurrentMaxChance())
             {
-                otherNearNPCs[rand]._isAlerted = true;
+                otherNearNPCs[rand].isAlerted = true;
             }
         }
         void DelayReset()
@@ -101,7 +97,7 @@ public class NPCController : MonoBehaviour
 
     private float GetCurrentMaxValue()
     {
-        return _alertValue + (_alertMultipler * GameManager.Instance.danger.currentDanger);
+        return _alertValue + GetCurrentMaxChance();
     }
 
     private float GetCurrentMaxChance()

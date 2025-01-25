@@ -15,7 +15,10 @@ public class GameManager : MonoBehaviour
     private float _satiatedTimer;//if more than designated value, isGameOver true
     
     private void Awake() 
-    { 
+    {
+        vibe = new();
+        danger = new();
+
         if (Instance != null && Instance != this) 
         { 
             Destroy(this); 
@@ -104,7 +107,7 @@ public class Vibe
     }
 }
 
-public class Danger : MonoBehaviour
+public class Danger
 {
     public float currentDanger;
     public float dangerRemoveCooldown;

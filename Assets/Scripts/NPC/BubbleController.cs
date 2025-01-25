@@ -19,14 +19,15 @@ public class BubbleController : MonoBehaviour
 
     public void StartEatenAnim()
     {
-        bubbleAnim.SetBool("isEaten", true);//TODO: this may change
+        string whichAnim = NPCController.isAlerted ? "isRedEaten" : "isEaten";
+        bubbleAnim.SetBool(whichAnim, true);
         DelayUtility.ExecuteAfterSeconds(DisableBubble, 1f);
     }
 
     public void DisableBubble()
     {
         bubbleAnim.SetBool("isEaten", false);
-        bubbleAnim.SetBool("isAlert", false);
+        bubbleAnim.SetBool("isRedEaten", false);
         bubbleImage.localScale = Vector3.zero;
         IncreaseDangerLevel();
     }
@@ -37,7 +38,7 @@ public class BubbleController : MonoBehaviour
         {
             if (alertValue >= 100)
             {
-                //TODO: SPREAD RED BUBBLE
+                //SPREAD RED BUBBLE
                 NPCController.EnableRadar();
             }
             else
