@@ -137,7 +137,7 @@ public class NPCController : MonoBehaviour
             RandomAnimInt();
             anim.SetBool("CanTransition", true);
             currentDelayCd = Random.Range(5, 15);
-            Invoke("ResetBool", 0.5f);
+            DelayUtility.ExecuteAfterSeconds(ResetBool, 0.5f, true);
         }
     }
 
