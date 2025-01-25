@@ -33,6 +33,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        ReduceVibe();
+        Hunger();
+    }
+
+    private void ReduceVibe()
+    {
         if (_reduceVibeTimer < .1f)
         {
             _reduceVibeTimer += Time.deltaTime;
@@ -42,10 +48,7 @@ public class GameManager : MonoBehaviour
             vibe.CurrentVibeValue();
             _reduceVibeTimer = 0;
         }
-
-        Hunger();
     }
-
     private void Hunger()
     {
         if (vibe.isHungry)

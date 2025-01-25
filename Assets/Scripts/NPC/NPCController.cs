@@ -31,15 +31,8 @@ public class NPCController : MonoBehaviour
         AfterAlert();
 
         RandomizeAlert();
-        
-        currentDelayCd -= Time.deltaTime;
-        if(currentDelayCd < 0)
-        {
-            RandomAnimInt();
-            anim.SetBool("CanTransition", true);
-            currentDelayCd = Random.Range(5, 15);
-            Invoke("ResetBool", 0.5f);
-        }
+
+        PlayNextAnim();
 
     }
 
@@ -134,6 +127,18 @@ public class NPCController : MonoBehaviour
     private void ResetBool()
     {
         anim.SetBool("CanTransition", false);
+    }
+
+    private void PlayNextAnim()
+    {
+        currentDelayCd -= Time.deltaTime;
+        if(currentDelayCd < 0)
+        {
+            RandomAnimInt();
+            anim.SetBool("CanTransition", true);
+            currentDelayCd = Random.Range(5, 15);
+            Invoke("ResetBool", 0.5f);
+        }
     }
 
 }
