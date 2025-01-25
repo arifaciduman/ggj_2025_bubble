@@ -46,7 +46,7 @@ public class BubbleController : MonoBehaviour
         bubbleAnim.Rebind();
         //bubbleAnim.SetBool("isEaten", false);
         //bubbleAnim.SetBool("isRedEaten", false);
-        redBubbleAnim.SetBool("isRedEaten", false);
+        //redBubbleAnim.SetBool("isRedEaten", false);
         bubbleImage.localScale = Vector3.zero;
         bubbleRedImage.localScale = Vector3.zero;
         dialogueText.localScale = Vector3.zero;

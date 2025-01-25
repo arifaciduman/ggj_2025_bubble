@@ -134,7 +134,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1185784724, guid: 49dc6e9869e664f17b57c1d13d2e120f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -366,7 +366,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a50190ee0e8b84ef4ba2bb14582454a2, type: 2}
+  - {fileID: 2100000, guid: 2a6f7d5fadf9248ef95fac2267d65af0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -956,7 +956,7 @@ MonoBehaviour:
         UniformScaling: 0
         AllowAdditivePlays: 0
         DetermineScaleOnPlay: 0
-        DestinationScale: {x: 15, y: 15, z: 15}
+        DestinationScale: {x: 6, y: 6, z: 6}
         AnimateScaleX:
           serializedVersion: 2
           m_Curve: []
