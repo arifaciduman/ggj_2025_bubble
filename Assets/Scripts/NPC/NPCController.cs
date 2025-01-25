@@ -11,17 +11,12 @@ public class NPCController : MonoBehaviour
     public GameObject patrolZone;//random açılacak olan patrol küresi
 
     private float _alertMultipler = .1f;//affects the chance of alert bubble
-    private float _alertValue;//value that fills alert's current level
     //Summon bubble interval
     private float _minInterval = 4f;
     private float _maxInterval = 7.5f;
 
-    public Animator anim;
-
     public bool isAlerted;//kırmızı bubble animasyonu için alertValue artmaya başlasın mı?
     private bool _isRandomized;
-
-    private float currentDelayCd;
 
     private void Start()
     {
@@ -33,15 +28,6 @@ public class NPCController : MonoBehaviour
         AfterAlert();
 
         RandomizeAlert();
-
-        currentDelayCd -= Time.deltaTime;
-        if(currentDelayCd < 0)
-        {
-            RandomAnimInt();
-            anim.SetBool("CanTransition", true);
-            currentDelayCd = Random.Range(5, 15);
-            Invoke("ResetBool", 0.5f);
-        }
     }
 
     //Alarm çaldıktan sonrası
@@ -49,7 +35,7 @@ public class NPCController : MonoBehaviour
     {
         if (isAlerted)
         {
-            BubbleController.SetRedBubbleAnimMotion(GetCurrentMaxValue());
+            BubbleController.SetRedBubbleAnimMotion();
         }
     }
 
@@ -58,7 +44,6 @@ public class NPCController : MonoBehaviour
         void ResetAlertEnableBubble()
         {
             isAlerted = false;
-            _alertValue = 0;
             BubbleController.EnableBubble();
         }
         DelayUtility.ExecuteAfterSeconds(ResetAlertEnableBubble, GetInterval());
@@ -68,6 +53,10 @@ public class NPCController : MonoBehaviour
     {
         BubbleController.StartEatenAnim();
         GameManager.Instance.vibe.currentValue += 15f;
+        if (isAlerted)
+        {
+            GameManager.Instance.danger.currentDanger--;
+        }
         EnableRadar();
         SummonBubble();
     }
@@ -84,9 +73,9 @@ public class NPCController : MonoBehaviour
     /// <returns>Get summon interval value with danger multiplier</returns>
     private float GetInterval()
     {
-        float _minValue = _minInterval - GameManager.Instance.danger.DangerMultiplierForInterval();
+        float _minValue = _minInterval - GameManager.Instance.danger.currentDanger;
         if (_minValue <= 0) _minValue = 0;
-        float _maxValue = _maxInterval - (GameManager.Instance.danger.DangerMultiplierForInterval() / 2);
+        float _maxValue = _maxInterval - (GameManager.Instance.danger.currentDanger/ 2);
         if (_maxValue <= 3f) _maxValue = 3f;
 
         return Random.Range(_minValue, _maxValue);
@@ -97,43 +86,30 @@ public class NPCController : MonoBehaviour
         if (otherNearNPCs.Count > 0 && !_isRandomized)
         {
             int rand = Random.Range(0, otherNearNPCs.Count);
-            float chance = Random.Range(0.0f, 1.0f);
-
-            if (chance <= GetCurrentMaxChance())
+            if (!otherNearNPCs[rand].isAlerted)
             {
-                print("got the chance to alert");
-                otherNearNPCs[rand].isAlerted = true;
-            }
-            _isRandomized = true;
+                float chance = Random.Range(0.0f, 1.0f);
 
-            void DelayReset()
-            {
-                otherNearNPCs.Clear();
-                afterPopZone.SetActive(false);
-                _isRandomized = false;
+                if (chance <= GetCurrentMaxChance())
+                {
+                    otherNearNPCs[rand].isAlerted = true;
+                    GameManager.Instance.danger.currentDanger++;
+                }
+                _isRandomized = true;
+
+                void DelayReset()
+                {
+                    otherNearNPCs.Clear();
+                    afterPopZone.SetActive(false);
+                    _isRandomized = false;
+                }
+                DelayUtility.ExecuteAfterSeconds(DelayReset, .5f, true);
             }
-            DelayUtility.ExecuteAfterSeconds(DelayReset, .5f, true);
         }
-    }
-
-    private float GetCurrentMaxValue()
-    {
-        return _alertValue + GetCurrentMaxChance();
     }
 
     private float GetCurrentMaxChance()
     {
         return _alertMultipler * GameManager.Instance.danger.currentDanger;
     }
-
-    private void RandomAnimInt()
-    {
-        anim.SetInteger("RandomAnim", Random.Range(0, 4));
-    }
-
-    private void ResetBool()
-    {
-        anim.SetBool("CanTransition", false);
-    }
-
 }
