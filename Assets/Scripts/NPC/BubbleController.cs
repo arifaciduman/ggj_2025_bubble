@@ -11,10 +11,13 @@ public class BubbleController : MonoBehaviour
 
     public Collider bubbleCollider;
 
+    private float _alertValue;
+
     public void EnableBubble()
     {
         bubbleImage.localScale = Vector3.one;
         bubbleCollider.enabled = true;
+        _alertValue = 0;
     }
 
     public void StartEatenAnim()
@@ -28,23 +31,25 @@ public class BubbleController : MonoBehaviour
     {
         bubbleAnim.SetBool("isEaten", false);
         bubbleAnim.SetBool("isRedEaten", false);
+        redBubbleAnim.SetBool("isRedEaten", false);
         bubbleImage.localScale = Vector3.zero;
         IncreaseDangerLevel();
     }
 
-    public void SetRedBubbleAnimMotion(float alertValue)
+    public void SetRedBubbleAnimMotion()
     {
         if (!bubbleAnim.GetBool("isEaten"))
         {
-            if (alertValue >= 100)
+            if (_alertValue >= 1)
             {
                 //SPREAD RED BUBBLE
                 NPCController.EnableRadar();
             }
             else
             {
-                alertValue += Time.deltaTime;
-                redBubbleAnim.SetFloat("alertValue", alertValue / 100);
+                _alertValue += Time.deltaTime * .75f;
+                //print($"alertValue: {_alertValue}");
+                redBubbleAnim.SetFloat("alertValue", _alertValue);
             }
         }
     }

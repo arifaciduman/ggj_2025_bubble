@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public bool isGameOver;
 
     private float _satiatedTimer;//if more than designated value, isGameOver true
+    private float _reduceVibeTimer;
     
     private void Awake() 
     {
@@ -32,7 +33,15 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        vibe.CurrentVibeValue();
+        if (_reduceVibeTimer < .1f)
+        {
+            _reduceVibeTimer += Time.deltaTime;
+        }
+        else
+        {
+            vibe.CurrentVibeValue();
+            _reduceVibeTimer = 0;
+        }
 
         Hunger();
     }
@@ -74,7 +83,8 @@ public class Vibe
         {
             if (currentValue < maxValue || _isDazeState)
             {
-                currentValue -= reduceValue * CalculatedMultiplier() * Time.deltaTime;
+                //Debug.Log($"current reduce: {reduceValue * CalculatedMultiplier() * Time.deltaTime}");
+                currentValue -= reduceValue * CalculatedMultiplier();
                 GameManager.Instance.canvasManager.SetVibeFill();
                 isHungry = false;
                 isFull = false;
@@ -94,7 +104,7 @@ public class Vibe
                         _isDazeState = false;
                         reduceMultiplier -= 7.5f;
                     }
-                    DelayUtility.ExecuteAfterSeconds(DelayDazeEnding, 4f);
+                    DelayUtility.ExecuteAfterSeconds(DelayDazeEnding, 4f, true);
                     _isDazeState = true;
                 }
             }
@@ -109,25 +119,18 @@ public class Vibe
 
     private float CalculatedMultiplier()
     {
-        return reduceMultiplier * GameManager.Instance.player.stateVibeReduceMultiplier;
+        return reduceMultiplier * GameManager.Instance.player.stateVibeReduceMultiplier * GameManager.Instance.danger.currentDanger;
     }
 }
 
 [Serializable]
 public class Danger
 {
-    public float currentDanger;
-    public float dangerRemoveCooldown;
+    public float currentDanger = .5f;
 
     public void RemoveDanger()
     {
         currentDanger--;
-    }
-
-    //For bubble resummon
-    public float DangerMultiplierForInterval()
-    {
-        return 1 * currentDanger;
     }
 
     public void AddDanger()
