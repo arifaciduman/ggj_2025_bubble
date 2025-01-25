@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6355dee9c22464ceb96afe38eacfe6f0
+guid: b659182c50447432b81f7e78b8bb0840
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,18 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: WallBottomDark
+      name: Feet
+    second: {fileID: 2100000, guid: b5268784a2534480b9b5c3adb75da6a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sofa
     second: {fileID: 2100000, guid: 92d50cfcc7fb34d6f86cebe41525cff0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: WallBottomLight
-    second: {fileID: 2100000, guid: 1172a9a0f5763475ba80ba6831b90cd9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: WallTop
-    second: {fileID: 2100000, guid: 04908755aa1a04b9d9e3305b796b8b94, type: 2}
+      name: SofaDetail
+    second: {fileID: 2100000, guid: 3d81b742f32be4a56a41c22165e38b9d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6355dee9c22464ceb96afe38eacfe6f0
+guid: 845e0a5d09e6543e59349271511dde83
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,18 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: WallBottomDark
-    second: {fileID: 2100000, guid: 92d50cfcc7fb34d6f86cebe41525cff0, type: 2}
+      name: Frame
+    second: {fileID: 2100000, guid: 3d81b742f32be4a56a41c22165e38b9d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: WallBottomLight
-    second: {fileID: 2100000, guid: 1172a9a0f5763475ba80ba6831b90cd9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: WallTop
-    second: {fileID: 2100000, guid: 04908755aa1a04b9d9e3305b796b8b94, type: 2}
+      name: Portrait
+    second: {fileID: 2100000, guid: dbbe00f4d55834bb7b07663e97e57242, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
