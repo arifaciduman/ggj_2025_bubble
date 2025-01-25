@@ -5,6 +5,8 @@ public class PlayerController : MonoBehaviour
     public bool isDazed;
     public Animator playerAC;
 
+    public PlayerMovement playerMovement;
+    
     public float stateVibeReduceMultiplier = 1f;
 
     public enum PlayerState
@@ -33,11 +35,16 @@ public class PlayerController : MonoBehaviour
     public void EndDazeState()
     {
         isDazed = false;
+        playerMovement.dazeSpeedMultiplier = 1f;
+        playerAC.speed = 1f;
+        playerAC.SetBool("isDazed", false);
     }
     
     public void StartDazeState()
     {
         isDazed = true;
-        //playerAC.SetBool("isDazed", true);
+        playerMovement.dazeSpeedMultiplier = 0.5f;
+        playerAC.speed = 0.5f;
+        playerAC.SetBool("isDazed", true);
     }
 }

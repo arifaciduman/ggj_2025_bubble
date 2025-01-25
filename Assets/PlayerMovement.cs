@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
     public float sprintSpeed;
     public bool isSprinting;
+    public float dazeSpeedMultiplier = 1f;
     
     public float drag;
 
@@ -26,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         rb.linearDamping = drag;
-        
+        dazeSpeedMultiplier = 1f;
         //readyToJump = true;
     }
 
@@ -35,13 +36,21 @@ public class PlayerMovement : MonoBehaviour
         // ground check
         //grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
 
-        MyInput();
-        SpeedControl();
+        if (!GameManager.Instance.isGameOver)
+        {
+            MyInput();
+            SpeedControl();
+        }
+        
     }
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (!GameManager.Instance.isGameOver)
+        {
+            MovePlayer();
+        }
+        
     }
 
     private void MyInput()
@@ -80,11 +89,11 @@ public class PlayerMovement : MonoBehaviour
         // on ground
         if (!isSprinting)
         {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * dazeSpeedMultiplier, ForceMode.Force);
         }
         else
         {
-            rb.AddForce(moveDirection.normalized * sprintSpeed * 10f, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * sprintSpeed * 10f * dazeSpeedMultiplier, ForceMode.Force);
         }
     }
 

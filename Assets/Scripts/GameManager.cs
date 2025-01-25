@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public PlayerController player;
+    public CanvasManager canvasManager;
 
     public Vibe vibe;
     public Danger danger;
@@ -74,12 +75,14 @@ public class Vibe
             if (currentValue < maxValue || _isDazeState)
             {
                 currentValue -= reduceValue * CalculatedMultiplier() * Time.deltaTime;
+                GameManager.Instance.canvasManager.SetVibeFill();
                 isHungry = false;
                 isFull = false;
             }
             else
             {
                 currentValue = maxValue;
+                GameManager.Instance.canvasManager.SetVibeFill();
                 
                 if (!_isDazeState)
                 {
@@ -99,6 +102,7 @@ public class Vibe
         else
         {
             currentValue = 0;
+            GameManager.Instance.canvasManager.SetVibeFill();
             isHungry = true;
         }
     }

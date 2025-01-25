@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 749848382664689546}
   - component: {fileID: 9182147615102250406}
   - component: {fileID: 7851409519207172184}
+  - component: {fileID: 1395678882552682069}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -181,7 +182,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDazed: 0
-  playerAC: {fileID: 0}
+  playerAC: {fileID: 1395678882552682069}
+  playerMovement: {fileID: 9182147615102250406}
   stateVibeReduceMultiplier: 1
   state: 0
 --- !u!114 &9182147615102250406
@@ -199,6 +201,7 @@ MonoBehaviour:
   moveSpeed: 7
   sprintSpeed: 12
   isSprinting: 0
+  dazeSpeedMultiplier: 0
   drag: 4
   sprintKey: 32
   orientation: {fileID: 6896431390005311648}
@@ -229,6 +232,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &1395678882552682069
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2353804962085475641}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0d1c0cb1220c44aa1a9c219f944d69a3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5749088462315757246
 GameObject:
   m_ObjectHideFlags: 0
