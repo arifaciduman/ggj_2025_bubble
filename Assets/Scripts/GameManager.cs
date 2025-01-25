@@ -82,6 +82,8 @@ public class Vibe
 
     public void CurrentVibeValue()
     {
+        if (GameManager.Instance.isGameOver) return;
+        
         if(currentValue > 0)
         {
             if (currentValue < maxValue || _isDazeState)

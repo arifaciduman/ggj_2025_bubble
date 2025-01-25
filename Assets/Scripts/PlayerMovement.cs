@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         // ground check
         //grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
 
-        if (!GameManager.Instance.isGameOver)
+        if (!GameManager.Instance.isGameOver && !GameManager.Instance.vibe.isHungry)
         {
             MyInput();
             SpeedControl();
@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!GameManager.Instance.isGameOver)
+        if (!GameManager.Instance.isGameOver&& !GameManager.Instance.vibe.isHungry)
         {
             MovePlayer();
         }

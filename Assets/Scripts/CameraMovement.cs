@@ -20,7 +20,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.isGameOver)
+        if (!GameManager.Instance.isGameOver && !GameManager.Instance.vibe.isHungry)
         {
             //rotate orientation
             Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);

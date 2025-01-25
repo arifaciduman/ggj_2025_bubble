@@ -18,13 +18,13 @@ public class AfterPopTrigger : MonoBehaviour
             if (!other.CompareTag("Player"))
             {
                 NPCController.canPatrol = true;
-                NPCController.MMF_Player.PlayFeedbacks();
+                NPCController.patrolFeedback.PlayFeedbacks();
                 void DelayResettingBools()
                 {
                     NPCController.tryPatrol = false;
                     NPCController.canPatrol = false;
                 }
-                DelayUtility.ExecuteAfterSeconds(DelayResettingBools, NPCController.MMF_Player.TotalDuration);
+                DelayUtility.ExecuteAfterSeconds(DelayResettingBools, NPCController.patrolFeedback.TotalDuration);
                 NPCController.afterPopZone.SetActive(false);
             }
             else

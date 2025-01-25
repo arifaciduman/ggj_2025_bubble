@@ -11,7 +11,7 @@ public class NPCController : MonoBehaviour
     public GameObject afterPopZone;
     public GameObject patrolZone;//random açılacak olan patrol küresi
 
-    public MMF_Player MMF_Player;//TODO: Feedbacks => SetActive(true) - ToDestination 15f - Pause 5sn -  ToDestination 1.5f - SetActive(false)
+    public MMF_Player patrolFeedback;//TODO: Feedbacks => SetActive(true) - ToDestination 15f - Pause 5sn -  ToDestination 1.5f - SetActive(false)
 
     private float _alertMultipler = .1f;//affects the chance of alert bubble
     //Summon bubble interval
@@ -52,7 +52,8 @@ public class NPCController : MonoBehaviour
     //TODO: PATROL
     private void TryPatroling()
     {
-        if (!canPatrol && BubbleController.bubbleImage.localScale == Vector3.one /*&& BubbleController.bubbleRedImage.localScale != Vector3.one*/)//TODO: Comment kısmı açılacak!
+        if (!canPatrol && BubbleController.bubbleImage.localScale == Vector3.one 
+                       && BubbleController.bubbleRedImage.localScale != Vector3.one)
         {
             if (_patrolTimer < Random.Range(5.0f, 15.0f))
             {
