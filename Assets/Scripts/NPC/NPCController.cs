@@ -136,7 +136,8 @@ public class NPCController : MonoBehaviour
             {
                 float chance = Random.Range(0.0f, 1.0f);
 
-                if (chance <= GetCurrentMaxChance())
+                //if (chance <= GetCurrentMaxChance())
+                if (0 <= GetCurrentMaxChance())
                 {
                     otherNearNPCs[rand].isAlerted = true;
                     GameManager.Instance.danger.currentDanger++;

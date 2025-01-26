@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7735849, g: 0.15690638, b: 0.15690638, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -450,7 +450,7 @@ RectTransform:
   m_GameObject: {fileID: 7753329498752628781}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4220795276472277721}
@@ -477,7 +477,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7753329498752628781}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -517,6 +517,7 @@ MonoBehaviour:
   bubbleImage: {fileID: 6812258531252198588}
   bubbleRedImage: {fileID: 4220795276472277721}
   dialogueText: {fileID: 1402497673377988079}
+  bubbleImageComponent: {fileID: 3478843751866065917}
   bubbleAnim: {fileID: 4522867754057070572}
   redBubbleAnim: {fileID: 2498788206330457855}
   bubbleOpening: {fileID: 7400000, guid: b97acf38c19b94eafa6df28b4b8e1bb3, type: 2}

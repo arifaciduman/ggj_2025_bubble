@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class DialogueTextAnimations : MonoBehaviour
 {
-    public List<Animation> normalAnimations;
-    public List<Animation> specialAnimations;
-
     public Animator animator;
     
     public void PlayNormalAnimation()
@@ -16,7 +13,7 @@ public class DialogueTextAnimations : MonoBehaviour
 
     public void PlayBadAnimation()
     {
-        animator.SetInteger("DialogueBad", Random.Range(0, 2));
+        animator.SetInteger("DialogueBad", 0);
         animator.SetBool("Activate", true);
     }
 }
