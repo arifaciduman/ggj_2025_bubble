@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public float stateVibeReduceMultiplier = .5f;
 
     public Rigidbody rb;
+    
+    public float defaultReduce = 1f, moveReduce = 1.25f, sprintReduce = 2f;
 
     public enum PlayerState
     {
@@ -41,9 +43,9 @@ public class PlayerController : MonoBehaviour
     {
         return (int)state switch
         {
-            1 => 1.25f,
-            2 => 2f,
-            _ => .5f
+            1 => moveReduce,
+            2 => sprintReduce,
+            _ => defaultReduce
         };
     }
 

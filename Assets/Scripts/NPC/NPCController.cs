@@ -20,9 +20,13 @@ public class NPCController : MonoBehaviour
 
     private float _alertMultipler = .1f;//affects the chance of alert bubble
     //Summon bubble interval
-    private float _minInterval = 4f;
-    private float _maxInterval = 7.5f;
+    public float _minInterval = 4f;
+    public float _maxInterval = 7.5f;
     private float _patrolTimer;
+
+    public float minPatrolTimer = 15f, maxPatrolTimer = 25f;
+
+    public float eatHealAmount = 10f;
 
     public bool isAlerted;//kırmızı bubble animasyonu için alertValue artmaya başlasın mı?
     private bool _isRandomized;
@@ -65,7 +69,7 @@ public class NPCController : MonoBehaviour
         if (!canPatrol && BubbleController.bubbleImage.localScale == Vector3.one 
                        && BubbleController.bubbleRedImage.localScale != Vector3.one && GameManager.Instance.patrolledNPC == null)
         {
-            if (_patrolTimer < Random.Range(15.0f, 25.0f))
+            if (_patrolTimer < Random.Range(minPatrolTimer, maxPatrolTimer))
             {
                 _patrolTimer += Time.deltaTime;
             }
@@ -103,7 +107,7 @@ public class NPCController : MonoBehaviour
     public void AfterEatingBubble()
     {
         BubbleController.StartEatenAnim();
-        GameManager.Instance.vibe.currentValue += 10f;
+        GameManager.Instance.vibe.currentValue += eatHealAmount;
         if (isAlerted)
         {
             GameManager.Instance.danger.currentDanger--;
