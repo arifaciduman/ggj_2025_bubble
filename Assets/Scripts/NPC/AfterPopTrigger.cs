@@ -19,11 +19,13 @@ public class AfterPopTrigger : MonoBehaviour
             {
                 NPCController.patrolIndicator.SetActive(true);
                 NPCController.canPatrol = true;
+                GameManager.Instance.patrolledNPC = NPCController;
                 NPCController.patrolFeedback.PlayFeedbacks();
                 void DelayResettingBools()
                 {
                     NPCController.tryPatrol = false;
                     NPCController.canPatrol = false;
+                    GameManager.Instance.patrolledNPC = null;
                     NPCController.patrolIndicator.SetActive(false);
                 }
                 DelayUtility.ExecuteAfterSeconds(DelayResettingBools, NPCController.patrolFeedback.TotalDuration);

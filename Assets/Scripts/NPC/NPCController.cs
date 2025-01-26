@@ -55,7 +55,7 @@ public class NPCController : MonoBehaviour
     private void TryPatroling()
     {
         if (!canPatrol && BubbleController.bubbleImage.localScale == Vector3.one 
-                       && BubbleController.bubbleRedImage.localScale != Vector3.one)
+                       && BubbleController.bubbleRedImage.localScale != Vector3.one && GameManager.Instance.patrolledNPC == null)
         {
             if (_patrolTimer < Random.Range(15.0f, 25.0f))
             {

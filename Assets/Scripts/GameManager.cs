@@ -9,12 +9,13 @@ public class GameManager : MonoBehaviour
     public CanvasManager canvasManager;
     public AudioManager audioManager;
 
+    public NPCController patrolledNPC;
+
     public Vibe vibe;
     public Danger danger;
 
     public bool isGameOver;
 
-    //private float _satiatedTimer;//if more than designated value, isGameOver true
     private float _reduceVibeTimer;
     
     private void Awake() 
@@ -35,7 +36,6 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         ReduceVibe();
-        //Hunger();
     }
 
     private void ReduceVibe()
@@ -50,22 +50,6 @@ public class GameManager : MonoBehaviour
             _reduceVibeTimer = 0;
         }
     }
-    //private void Hunger()
-    //{
-    //    if (vibe.isHungry && !isGameOver)
-    //    {
-    //        _satiatedTimer += Time.deltaTime;
-
-    //        if (_satiatedTimer >= 5f)
-    //        {
-    //            isGameOver = true;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        _satiatedTimer = 0f;
-    //    }
-    //}
 }
 
 [Serializable]
