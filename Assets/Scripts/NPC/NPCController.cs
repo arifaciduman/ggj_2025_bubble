@@ -1,11 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
+using UnityEngine.Animations;
+using UnityEngine.Animations.Rigging;
 
 public class NPCController : MonoBehaviour
 {
     public BubbleController BubbleController;
     public SpeechAudio SpeechAudio;
+    public NPCFeedbacks NpcFeedbacks;
 
     public List<NPCController> otherNearNPCs = new();
 
@@ -27,8 +30,13 @@ public class NPCController : MonoBehaviour
     public bool canPatrol;
     private bool _enablePopZoneForPatrol;
 
+    public Transform aimObject;
+    public MultiAimConstraint headConstraint;
+    public MultiAimConstraint chestConstraint;
+
     public Animator anim;
     private float currentDelayCd;
+    
     
     private void Awake()
     {
@@ -176,6 +184,13 @@ public class NPCController : MonoBehaviour
             currentDelayCd = Random.Range(5, 15);
             DelayUtility.ExecuteAfterSeconds(ResetBool, 0.5f, true);
         }
+    }
+
+    public void PlayerDied()
+    {
+        aimObject.SetPositionAndRotation(GameObject.FindWithTag("Player").transform.position, Quaternion.identity);
+        headConstraint.weight = 1f;
+        chestConstraint.weight = 0.33f;
     }
 
 }

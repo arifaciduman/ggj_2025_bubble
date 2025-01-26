@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     public bool isGameOver;
 
     private float _reduceVibeTimer;
+
+    public List<NPCController> allNPCs;
     
     private void Awake() 
     {
@@ -122,6 +125,10 @@ public class Vibe
             if (GameManager.Instance.danger.currentDanger > 0)
             {
                 GameManager.Instance.canvasManager.SetCaughtPanelActive();
+                for (int i = 0; i < GameManager.Instance.allNPCs.Count; i++)
+                {
+                    GameManager.Instance.allNPCs[i].PlayerDied();
+                }
             }
             else
             {

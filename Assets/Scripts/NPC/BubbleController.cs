@@ -51,6 +51,7 @@ public class BubbleController : MonoBehaviour
             bubbleImageComponent.enabled = false;
             bubbleRedImage.localScale = Vector3.one;
             SpeechAudio.badClipsPlaying = true;
+            NPCController.NpcFeedbacks.evilBubbleSpawn.PlayFeedbacks();
             void DelayDialogue()
             {
                 dialogueText.localScale = Vector3.one;
@@ -66,6 +67,8 @@ public class BubbleController : MonoBehaviour
             bubbleImageComponent.enabled = true;
             bubbleRedImage.localScale = Vector3.zero;
             SpeechAudio.badClipsPlaying = false;
+            NPCController.NpcFeedbacks.bubbleSpawn.PlayFeedbacks();
+
             void DelayDialogue()
             {
                 dialogueText.localScale = Vector3.one;
@@ -85,6 +88,8 @@ public class BubbleController : MonoBehaviour
         bubbleImageComponent.enabled = whichAnim != "isRedEaten";
         bubbleRedImage.localScale = whichAnim != "isRedEaten" ? Vector3.zero : Vector3.one;
         bubbleAnim.SetBool(whichAnim, true);
+        if(whichAnim == "isEaten") NPCController.NpcFeedbacks.eat.PlayFeedbacks();
+        else NPCController.NpcFeedbacks.evilEat.PlayFeedbacks();
         DelayUtility.ExecuteAfterSeconds(DisableBubble, 1f);
     }
 
