@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 3024432307796180219}
   m_Father: {fileID: 1084978537749717898}
-  m_LocalEulerAnglesHint: {x: -23.199, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1183024399 &561580552292310827
 LookAtConstraint:
   m_ObjectHideFlags: 0
