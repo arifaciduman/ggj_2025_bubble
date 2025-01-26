@@ -51,8 +51,8 @@ Material:
     - _QueueOffset: 0
     - _Stutter_Speed: 5
     m_Colors:
-    - _Base_Color: {r: 0.062611245, g: 0.10367241, b: 0.1981132, a: 0}
-    - _Grunge_Color: {r: 0.43147027, g: 0.56695336, b: 0.9056604, a: 1}
+    - _Base_Color: {r: 0.121796004, g: 0.13561554, b: 0.21698111, a: 0}
+    - _Grunge_Color: {r: 0.6556604, g: 0.7552629, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &679335030330037202
