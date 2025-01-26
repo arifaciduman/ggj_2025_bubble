@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c7350bab6f8cb4177b25ca48f5d0d2f7
-      internalID: 937472990
+      spriteID: c1f809dea4bc248b2b9d7b07aa965ac4
+      internalID: 493912326
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3d23abf461b1438092aa26d8d0e3530
-      internalID: 1654262637
+      spriteID: d043696e15ed3441aa09e3c5ef5769c8
+      internalID: -1881777676
       vertices: []
       indices: 
       edges: []
@@ -156,8 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7aef6d08f180846d9bf77d884dedb3c3
-      internalID: -1259457251
+      spriteID: a509997827f4943a086859441e71c915
+      internalID: -1860077695
       vertices: []
       indices: 
       edges: []
@@ -178,8 +178,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c3d5d117f7aa4bc19c001e5ca89f124
-      internalID: 1031718287
+      spriteID: 4d445422bb4414bae917a91dda7501f4
+      internalID: 582690212
       vertices: []
       indices: 
       edges: []
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a17e0ec9b54d54735b2db13b0d5fa82d
-      internalID: -190967664
+      spriteID: 0da4260b466b94599b1a03841cef156e
+      internalID: -1207219848
       vertices: []
       indices: 
       edges: []
@@ -222,8 +222,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f63e5157a5e3e4f958bbd0df1d5a0e49
-      internalID: -35544719
+      spriteID: 0236107bbd69043b68d7a3f879fd12c9
+      internalID: -1721830670
       vertices: []
       indices: 
       edges: []
@@ -242,12 +242,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      uyar_unlemleri_0: 937472990
-      uyar_unlemleri_1: 1654262637
-      uyar_unlemleri_2: -1259457251
-      uyar_unlemleri_3: 1031718287
-      uyar_unlemleri_4: -190967664
-      uyar_unlemleri_5: -35544719
+      uyar_unlemleri_0: 493912326
+      uyar_unlemleri_1: -1881777676
+      uyar_unlemleri_2: -1860077695
+      uyar_unlemleri_3: 582690212
+      uyar_unlemleri_4: -1207219848
+      uyar_unlemleri_5: -1721830670
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
