@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,8 @@ public class BubbleController : MonoBehaviour
     public NPCController NPCController;
     public DialogueTextAnimations dialogueTextAnimations;
 
+    public SpeechAudio SpeechAudio;
+    
     public RectTransform bubbleImage;
     public RectTransform bubbleRedImage;
     public RectTransform dialogueText;
@@ -21,20 +24,38 @@ public class BubbleController : MonoBehaviour
 
     private float _alertValue;
 
+    private bool _isBubbleUp;
+
+    private void Update()
+    {
+        if (_isBubbleUp)
+        {
+            SpeechAudio.canPlay = true;
+        }
+        else
+        {
+            SpeechAudio.canPlay = false;
+        }
+    }
+
     public void EnableBubble()
     {
+        SpeechAudio._isReadyForNext = false;
         bubbleCollider.enabled = true;
         _alertValue = 0;
+        _isBubbleUp = true;
         if (NPCController.isAlerted)
         {
             //redBubbleAnim.SetBool("isActivated", true);
             //bubbleImage.localScale = Vector3.zero;
             bubbleImageComponent.enabled = false;
             bubbleRedImage.localScale = Vector3.one;
+            SpeechAudio.badClipsPlaying = true;
             void DelayDialogue()
             {
                 dialogueText.localScale = Vector3.one;
                 dialogueTextAnimations.PlayBadAnimation();
+                NPCController.SpeechAudio.PlayBad();
                 
             }
             DelayUtility.ExecuteAfterSeconds(DelayDialogue, bubbleOpening.length, true);
@@ -45,10 +66,13 @@ public class BubbleController : MonoBehaviour
             //bubbleImage.localScale = Vector3.one;
             bubbleImageComponent.enabled = true;
             bubbleRedImage.localScale = Vector3.zero;
+            SpeechAudio.badClipsPlaying = false;
             void DelayDialogue()
             {
                 dialogueText.localScale = Vector3.one;
                 dialogueTextAnimations.PlayNormalAnimation();
+                NPCController.SpeechAudio.PlayGood();
+
                 
             }
             DelayUtility.ExecuteAfterSeconds(DelayDialogue, bubbleOpening.length, true);
@@ -92,8 +116,9 @@ public class BubbleController : MonoBehaviour
         bubbleImageComponent.enabled = false;
         bubbleRedImage.localScale = Vector3.zero;
         dialogueText.localScale = Vector3.zero;
+        NPCController.SpeechAudio.Stop();
         dialogueTextAnimations.animator.SetBool("Activate", false);
-
+        _isBubbleUp = false;
         IncreaseDangerLevel();
     }
 

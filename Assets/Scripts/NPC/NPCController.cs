@@ -5,6 +5,7 @@ using MoreMountains.Feedbacks;
 public class NPCController : MonoBehaviour
 {
     public BubbleController BubbleController;
+    public SpeechAudio SpeechAudio;
 
     public List<NPCController> otherNearNPCs = new();
 
