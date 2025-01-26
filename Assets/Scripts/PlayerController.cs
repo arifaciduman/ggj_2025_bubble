@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -9,6 +10,8 @@ public class PlayerController : MonoBehaviour
     
     public float stateVibeReduceMultiplier = .5f;
 
+    public Rigidbody rb;
+
     public enum PlayerState
     {
         Idle,
@@ -17,9 +20,21 @@ public class PlayerController : MonoBehaviour
     }
     public PlayerState state;
 
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     private void Update()
     {
         stateVibeReduceMultiplier = SetStateMultiplier();
+    }
+
+    public void StarveAnim()
+    {
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        rb.AddExplosionForce( 10f, transform.position + Vector3.down, 3f);
     }
 
     private float SetStateMultiplier()

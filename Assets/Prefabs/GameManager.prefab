@@ -177,6 +177,7 @@ MonoBehaviour:
   player: {fileID: 0}
   canvasManager: {fileID: 0}
   audioManager: {fileID: 3951225095502090860}
+  patrolledNPC: {fileID: 0}
   vibe:
     currentValue: 50
     maxValue: 100
@@ -187,6 +188,7 @@ MonoBehaviour:
   danger:
     currentDanger: 0.2
   isGameOver: 0
+  allNPCs: []
 --- !u!1 &8064145989428568686
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,6 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicState: 0
+  lastState: 0
   mainASource: {fileID: 6257680476927891792}
   secondASource: {fileID: 2142569157845883618}
   adaptiveClips:
@@ -255,7 +258,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

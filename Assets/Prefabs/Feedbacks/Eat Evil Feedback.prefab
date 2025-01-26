@@ -222,7 +222,7 @@ MonoBehaviour:
           ButtonText: Debug Play Sound
         TestStopButton:
           ButtonText: Debug Stop Sound
-        PlayMethod: 0
+        PlayMethod: 1
         PoolSize: 10
         UseLegacyEventsMode: 0
         StopSoundOnFeedbackStop: 1
@@ -233,7 +233,7 @@ MonoBehaviour:
         SfxAudioMixerGroup: {fileID: 0}
         Priority: 128
         PanStereo: 0
-        SpatialBlend: 1
+        SpatialBlend: 0
         DopplerLevel: 1
         Spread: 0
         RolloffMode: 0

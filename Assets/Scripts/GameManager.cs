@@ -122,9 +122,45 @@ public class Vibe
             GameManager.Instance.isGameOver = true;
             GameManager.Instance.canvasManager.StopTimer();
 
-            if (GameManager.Instance.danger.currentDanger > 0)
+            for (int i = 0; i < GameManager.Instance.allNPCs.Count; i++)
             {
-                GameManager.Instance.canvasManager.SetCaughtPanelActive();
+                if (GameManager.Instance.allNPCs[i].isAlerted)
+                {
+                    void caughtPanel()
+                    {
+                        GameManager.Instance.canvasManager.SetCaughtPanelActive();
+                    }
+
+                    DelayUtility.ExecuteAfterSeconds(caughtPanel, 3f);
+                
+                    for (int j = 0; j < GameManager.Instance.allNPCs.Count; j++)
+                    {
+                        GameManager.Instance.allNPCs[j].PlayerDied();
+                    }
+                    break;
+                }
+
+                if (i == GameManager.Instance.allNPCs.Count - 1)
+                {
+                    void starvePanel()
+                    {
+                        GameManager.Instance.canvasManager.SetStarvationPanelActive();
+                    }
+
+                    GameManager.Instance.player.StarveAnim();
+                    DelayUtility.ExecuteAfterSeconds(starvePanel, 3f);
+                }
+            }
+            
+            /*if (GameManager.Instance.danger.currentDanger > 0)
+            {
+                void caughtPanel()
+                {
+                    GameManager.Instance.canvasManager.SetCaughtPanelActive();
+                }
+
+                DelayUtility.ExecuteAfterSeconds(caughtPanel, 3f);
+                
                 for (int i = 0; i < GameManager.Instance.allNPCs.Count; i++)
                 {
                     GameManager.Instance.allNPCs[i].PlayerDied();
@@ -132,12 +168,19 @@ public class Vibe
             }
             else
             {
-                GameManager.Instance.canvasManager.SetStarvationPanelActive();
+                void starvePanel()
+                {
+                    GameManager.Instance.canvasManager.SetStarvationPanelActive();
+                }
+
+                GameManager.Instance.player.StarveAnim();
+                DelayUtility.ExecuteAfterSeconds(starvePanel, 3f);
             }
             Debug.Log("dead from hunger");
             //currentValue = 0;
             //GameManager.Instance.canvasManager.SetVibeFill();
             //isHungry = true;
+            */
         }
     }
 
