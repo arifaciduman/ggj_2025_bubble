@@ -52,7 +52,7 @@ Material:
     - _Stutter_Speed: 5
     m_Colors:
     - _Base_Color: {r: 0.056514766, g: 0.056514766, b: 0.09433961, a: 0}
-    - _Grunge_Color: {r: 0.31092027, g: 0.31092027, b: 0.4811321, a: 1}
+    - _Grunge_Color: {r: 0.5171769, g: 0.5171769, b: 0.735849, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &679335030330037202
