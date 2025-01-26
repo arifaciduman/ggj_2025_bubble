@@ -133,6 +133,16 @@ public class Vibe
         else
         {
             GameManager.Instance.isGameOver = true;
+            GameManager.Instance.canvasManager.StopTimer();
+
+            if (GameManager.Instance.danger.currentDanger > 0)
+            {
+                GameManager.Instance.canvasManager.SetCaughtPanelActive();
+            }
+            else
+            {
+                GameManager.Instance.canvasManager.SetStarvationPanelActive();
+            }
             Debug.Log("dead from hunger");
             //currentValue = 0;
             //GameManager.Instance.canvasManager.SetVibeFill();

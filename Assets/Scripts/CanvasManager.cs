@@ -22,6 +22,7 @@ public class CanvasManager : MonoBehaviour
     {
         starvationPanel.SetActive(false);
         caughtPanel.SetActive(false);
+        StartTimer();
     }
 
     private void Update()
@@ -41,7 +42,8 @@ public class CanvasManager : MonoBehaviour
 
     public void Timer()
     {
-        //currentTimePassed = Time.time - timerStart;
+        currentTimePassed = Time.time - timeStart;
+        TimerText(currentTimePassed);
     }
     
     public void StopTimer()
@@ -49,9 +51,11 @@ public class CanvasManager : MonoBehaviour
         isTimerActive = false;
     }
 
-    public void TimerText()
+    public void TimerText(float time)
     {
-        
+        int minutes = (int)time / 60;
+        int seconds = (int)time % 60;
+        timerText.text = $"{minutes:D2}:{seconds:D2}";
     }
 
     public void SetVibeFill()
