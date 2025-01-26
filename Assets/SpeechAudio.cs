@@ -36,7 +36,6 @@ public class SpeechAudio : MonoBehaviour
                 {
                     if (!audioSource2.isPlaying)
                     {
-                        print("in 2nd as");
                         int rand = Random.Range(0, GetAudioClip().Count);
                         audioSource2.clip = audioClipsGood[rand];
                         audioSource2.Play();
@@ -50,7 +49,6 @@ public class SpeechAudio : MonoBehaviour
                 {
                     if (!audioSource1.isPlaying)
                     {
-                        print("in 1st as");
                         int rand = Random.Range(0, GetAudioClip().Count);
                         audioSource1.clip = audioClipsGood[rand];
                         audioSource1.Play();
@@ -67,21 +65,6 @@ public class SpeechAudio : MonoBehaviour
             audioSource1.Stop();
             audioSource2.Stop();
         }
-    }
-
-    public void PlayGood()
-    {
-        badClipsPlaying = false;
-    }
-    
-    public void PlayBad()
-    {
-        badClipsPlaying = true;
-    }
-    
-    public void Stop()
-    {
-        badClipsPlaying = false;
     }
 
     private List<AudioClip> GetAudioClip()

@@ -29,7 +29,7 @@ public class NPCController : MonoBehaviour
 
     public Animator anim;
     private float currentDelayCd;
-
+    
     private void Awake()
     {
         PlayNextAnim();
@@ -89,12 +89,7 @@ public class NPCController : MonoBehaviour
 
     private void SummonBubble()
     {
-        void ResetAlertEnableBubble()
-        {
-            isAlerted = false;
-            BubbleController.EnableBubble();
-        }
-        DelayUtility.ExecuteAfterSeconds(ResetAlertEnableBubble, GetInterval());
+        DelayUtility.ExecuteAfterSeconds(BubbleController.EnableBubble, GetInterval());
     }
 
     public void AfterEatingBubble()
@@ -138,7 +133,7 @@ public class NPCController : MonoBehaviour
             {
                 float chance = Random.Range(0.0f, 1.0f);
 
-                if (chance <= GetCurrentMaxChance())
+                if (chance <= GetCurrentMaxChance())//chance
                 {
                     otherNearNPCs[rand].isAlerted = true;
                     GameManager.Instance.danger.currentDanger++;

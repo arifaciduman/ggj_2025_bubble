@@ -55,7 +55,6 @@ public class BubbleController : MonoBehaviour
             {
                 dialogueText.localScale = Vector3.one;
                 dialogueTextAnimations.PlayBadAnimation();
-                NPCController.SpeechAudio.PlayBad();
                 
             }
             DelayUtility.ExecuteAfterSeconds(DelayDialogue, bubbleOpening.length, true);
@@ -71,29 +70,12 @@ public class BubbleController : MonoBehaviour
             {
                 dialogueText.localScale = Vector3.one;
                 dialogueTextAnimations.PlayNormalAnimation();
-                NPCController.SpeechAudio.PlayGood();
 
                 
             }
             DelayUtility.ExecuteAfterSeconds(DelayDialogue, bubbleOpening.length, true);
         }
     }
-
-    //public void EnableRedBubble()
-    //{
-    //    void DelayDialogue()
-    //    {
-    //        dialogueText.localScale = Vector3.one;
-    //        dialogueTextAnimations.PlayBadAnimation();
-    //        if (NPCController.isAlerted)
-    //        {
-    //            //bubbleImage.localScale = Vector3.zero;
-    //            bubbleImageComponent.enabled = false;
-    //            bubbleRedImage.localScale = Vector3.one;
-    //        }
-    //    }
-    //    DelayUtility.ExecuteAfterSeconds(DelayDialogue, bubbleOpening.length, true);
-    //}
 
     public void StartEatenAnim()
     {
@@ -109,16 +91,12 @@ public class BubbleController : MonoBehaviour
     public void DisableBubble()
     {
         bubbleAnim.Rebind();
-        //bubbleAnim.SetBool("isEaten", false);
-        //bubbleAnim.SetBool("isRedEaten", false);
-        //redBubbleAnim.SetBool("isRedEaten", false);
-        //bubbleImage.localScale = Vector3.zero;
         bubbleImageComponent.enabled = false;
         bubbleRedImage.localScale = Vector3.zero;
         dialogueText.localScale = Vector3.zero;
-        NPCController.SpeechAudio.Stop();
         dialogueTextAnimations.animator.SetBool("Activate", false);
         _isBubbleUp = false;
+        NPCController.isAlerted = false;
         IncreaseDangerLevel();
     }
 
@@ -133,7 +111,6 @@ public class BubbleController : MonoBehaviour
             }
             else
             {
-                //bubbleImage.localScale = Vector3.zero;
                 bubbleImageComponent.enabled = false;
                 bubbleRedImage.localScale = Vector3.one;
                 
