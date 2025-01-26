@@ -10,6 +10,7 @@ public class NPCController : MonoBehaviour
 
     public GameObject afterPopZone;
     public GameObject patrolZone;//random açılacak olan patrol küresi
+    public GameObject patrolIndicator;
 
     public MMF_Player patrolFeedback;//TODO: Feedbacks => SetActive(true) - ToDestination 15f - Pause 5sn -  ToDestination 1.5f - SetActive(false)
 

@@ -55,29 +55,29 @@ public class BubbleController : MonoBehaviour
         }
     }
 
-    public void EnableRedBubble()
-    {
-        void DelayDialogue()
-        {
-            dialogueText.localScale = Vector3.one;
-            dialogueTextAnimations.PlayBadAnimation();
-            if (NPCController.isAlerted)
-            {
-                //bubbleImage.localScale = Vector3.zero;
-                bubbleImageComponent.enabled = false;
-                bubbleRedImage.localScale = Vector3.one;
-            }
-        }
-        DelayUtility.ExecuteAfterSeconds(DelayDialogue, bubbleOpening.length, true);
-    }
+    //public void EnableRedBubble()
+    //{
+    //    void DelayDialogue()
+    //    {
+    //        dialogueText.localScale = Vector3.one;
+    //        dialogueTextAnimations.PlayBadAnimation();
+    //        if (NPCController.isAlerted)
+    //        {
+    //            //bubbleImage.localScale = Vector3.zero;
+    //            bubbleImageComponent.enabled = false;
+    //            bubbleRedImage.localScale = Vector3.one;
+    //        }
+    //    }
+    //    DelayUtility.ExecuteAfterSeconds(DelayDialogue, bubbleOpening.length, true);
+    //}
 
     public void StartEatenAnim()
     {
         string whichAnim = NPCController.isAlerted ? "isRedEaten" : "isEaten";
         //bubbleImage.localScale = Vector3.one;
         dialogueText.localScale = Vector3.zero;
-        bubbleImageComponent.enabled = true;
-        bubbleRedImage.localScale = Vector3.zero;
+        bubbleImageComponent.enabled = whichAnim != "isRedEaten";
+        bubbleRedImage.localScale = whichAnim != "isRedEaten" ? Vector3.zero : Vector3.one;
         bubbleAnim.SetBool(whichAnim, true);
         DelayUtility.ExecuteAfterSeconds(DisableBubble, 1f);
     }
@@ -113,7 +113,6 @@ public class BubbleController : MonoBehaviour
                 bubbleRedImage.localScale = Vector3.one;
                 
                 _alertValue += Time.deltaTime * .5f;
-                //print($"alertValue: {_alertValue}");
                 
                 redBubbleAnim.SetFloat("alertValue", _alertValue);
             }

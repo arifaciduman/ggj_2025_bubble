@@ -17,12 +17,14 @@ public class AfterPopTrigger : MonoBehaviour
         {
             if (!other.CompareTag("Player"))
             {
+                NPCController.patrolIndicator.SetActive(true);
                 NPCController.canPatrol = true;
                 NPCController.patrolFeedback.PlayFeedbacks();
                 void DelayResettingBools()
                 {
                     NPCController.tryPatrol = false;
                     NPCController.canPatrol = false;
+                    NPCController.patrolIndicator.SetActive(false);
                 }
                 DelayUtility.ExecuteAfterSeconds(DelayResettingBools, NPCController.patrolFeedback.TotalDuration);
                 NPCController.afterPopZone.SetActive(false);
@@ -31,6 +33,7 @@ public class AfterPopTrigger : MonoBehaviour
             {
                 NPCController.tryPatrol = false;
                 NPCController.canPatrol = false;
+                NPCController.patrolIndicator.SetActive(false);
                 NPCController.patrolZone.SetActive(false);
                 NPCController.afterPopZone.SetActive(false);
             }
