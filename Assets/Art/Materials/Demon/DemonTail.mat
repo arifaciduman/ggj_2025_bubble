@@ -43,12 +43,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _Distort_Scale: 5
-    - _Distort_Speed: 0.2
+    - _Distort_Speed: -0.2
     - _Distort_Strength: 0.82
+    - _Opacity: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Base_Color: {r: 0.7137255, g: 1, b: 0.3254902, a: 1}
+    - _Base_Color: {r: 0.7137255, g: 1, b: 0.32549012, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &7801778686061240549
