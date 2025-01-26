@@ -27,29 +27,31 @@ public class AudioManager : MonoBehaviour
     {
         while (true)
         {
-            if (mainASource.isPlaying && mainASource.clip.length - mainASource.time <= 0.2f)
+            if (mainASource.isPlaying && mainASource.clip.length - mainASource.time <= 2)
             {
-                if (!secondASource.isPlaying && !_isSecondOne)
+                if (!_isSecondOne)
                 {
                     secondASource.clip = GetAudioClip();
                     secondASource.Play();
                     secondASource.time = 0;
                     _isSecondOne = true;
-                    yield return new WaitForSeconds(mainASource.clip.length * 0.75f);
-                    _isSecondOne = false;
+                    
+                    System.Action _action = ()=> _isSecondOne = false;
+                    DelayUtility.ExecuteAfterSeconds(_action, secondASource.clip.length * .75f);
                 }
             }
 
-            if (secondASource.isPlaying && secondASource.clip.length - secondASource.time <= 0.2f)
+            if (secondASource.isPlaying && secondASource.clip.length - secondASource.time <= 2)
             {
-                if (!mainASource.isPlaying && !_isFirstOne)
+                if (!_isFirstOne)
                 {
                     mainASource.clip = GetAudioClip();
                     mainASource.Play();
                     mainASource.time = 0;
                     _isFirstOne = true;
-                    yield return new WaitForSeconds(secondASource.clip.length * 0.75f);
-                    _isFirstOne = false;
+                    
+                    System.Action _action = () =>  _isFirstOne = false;
+                    DelayUtility.ExecuteAfterSeconds(_action, mainASource.clip.length * .75f);
                 }
             }
 
