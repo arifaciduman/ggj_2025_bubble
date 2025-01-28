@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public float stateVibeReduceMultiplier = .5f;
 
     public Rigidbody rb;
+
+    public GameObject dazeAnimObj;
     
     public float defaultReduce = 1f, moveReduce = 1.25f, sprintReduce = 2f;
 
@@ -54,6 +56,7 @@ public class PlayerController : MonoBehaviour
         isDazed = false;
         playerMovement.dazeSpeedMultiplier = 1f;
         playerAC.speed = 1f;
+        dazeAnimObj.SetActive(false);
         playerAC.SetBool("isDazed", false);
     }
     
@@ -62,6 +65,7 @@ public class PlayerController : MonoBehaviour
         isDazed = true;
         playerMovement.dazeSpeedMultiplier = 0.5f;
         playerAC.speed = 0.5f;
+        dazeAnimObj.SetActive(true);
         playerAC.SetBool("isDazed", true);
     }
 }

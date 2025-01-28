@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class BubbleController : MonoBehaviour
 {
@@ -44,18 +46,24 @@ public class BubbleController : MonoBehaviour
         bubbleCollider.enabled = true;
         _alertValue = 0;
         _isBubbleUp = true;
+        dialogueTextAnimations.PlayAnimation();
         if (NPCController.isAlerted)
         {
             //redBubbleAnim.SetBool("isActivated", true);
             //bubbleImage.localScale = Vector3.zero;
+            // dialogueTextAnimations.PlayBadAnimation();
+            
             bubbleImageComponent.enabled = false;
             bubbleRedImage.localScale = Vector3.one;
             SpeechAudio.badClipsPlaying = true;
             NPCController.NpcFeedbacks.evilBubbleSpawn.PlayFeedbacks();
+            dialogueTextAnimations.PlayAnimation(true);
+            dialogueText.localScale = Vector3.zero;
+
             void DelayDialogue()
             {
                 dialogueText.localScale = Vector3.one;
-                dialogueTextAnimations.PlayBadAnimation();
+                //dialogueTextAnimations.PlayBadAnimation();
                 
             }
             DelayUtility.ExecuteAfterSeconds(DelayDialogue, bubbleOpening.length, true);
@@ -66,13 +74,16 @@ public class BubbleController : MonoBehaviour
             //bubbleImage.localScale = Vector3.one;
             bubbleImageComponent.enabled = true;
             bubbleRedImage.localScale = Vector3.zero;
+            
             SpeechAudio.badClipsPlaying = false;
             NPCController.NpcFeedbacks.bubbleSpawn.PlayFeedbacks();
-
+            dialogueText.localScale = Vector3.zero;
+            
+            // dialogueTextAnimations.PlayNormalAnimation();
             void DelayDialogue()
-            {
+            { 
                 dialogueText.localScale = Vector3.one;
-                dialogueTextAnimations.PlayNormalAnimation();
+               //dialogueTextAnimations.PlayNormalAnimation();
 
                 
             }
@@ -86,7 +97,9 @@ public class BubbleController : MonoBehaviour
         //bubbleImage.localScale = Vector3.one;
         dialogueText.localScale = Vector3.zero;
         bubbleImageComponent.enabled = whichAnim != "isRedEaten";
-        bubbleRedImage.localScale = whichAnim != "isRedEaten" ? Vector3.zero : Vector3.one;
+        bubbleImageComponent.enabled = true;
+        // bubbleRedImage.localScale = whichAnim != "isRedEaten" ? Vector3.zero : Vector3.one;
+       bubbleRedImage.localScale = Vector3.zero;
         bubbleAnim.SetBool(whichAnim, true);
         if(whichAnim == "isEaten") NPCController.NpcFeedbacks.eat.PlayFeedbacks();
         else NPCController.NpcFeedbacks.evilEat.PlayFeedbacks();
@@ -95,11 +108,11 @@ public class BubbleController : MonoBehaviour
 
     public void DisableBubble()
     {
+        dialogueTextAnimations.animator.SetBool("Activate", false);
         bubbleAnim.Rebind();
         bubbleImageComponent.enabled = false;
         bubbleRedImage.localScale = Vector3.zero;
         dialogueText.localScale = Vector3.zero;
-        dialogueTextAnimations.animator.SetBool("Activate", false);
         _isBubbleUp = false;
         NPCController.isAlerted = false;
         IncreaseDangerLevel();
@@ -113,14 +126,22 @@ public class BubbleController : MonoBehaviour
             {
                 //SPREAD RED BUBBLE
                 NPCController.EnableRadar();
+                bubbleCollider.enabled = true;
+                if(bubbleRedImage.localScale == Vector3.one) dialogueText.localScale = Vector3.one;
             }
             else
             {
                 bubbleImageComponent.enabled = false;
+                dialogueTextAnimations.PlayAnimation(true);
                 bubbleRedImage.localScale = Vector3.one;
-                
+                dialogueText.localScale = Vector3.zero;
+                // void ChangeBubble()
+                // {
+                //     
+                // }
+                //
+                // DelayUtility.ExecuteAfterSeconds(ChangeBubble, bubbleOpening.length, true);
                 _alertValue += Time.deltaTime * .5f;
-                
                 redBubbleAnim.SetFloat("alertValue", _alertValue);
             }
         }

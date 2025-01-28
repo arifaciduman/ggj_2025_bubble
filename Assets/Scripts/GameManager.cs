@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     public bool isGameOver;
 
     private float _reduceVibeTimer;
+    public float vibeReduceDefault;
+    public float vibeReduceMultiplierDefault;
 
     public List<NPCController> allNPCs;
     
@@ -33,7 +35,10 @@ public class GameManager : MonoBehaviour
         else 
         { 
             Instance = this; 
-        } 
+        }
+
+        vibe.reduceValue = vibeReduceDefault;
+        vibe.reduceMultiplier = vibeReduceMultiplierDefault;
     }
 
     private void Update()
@@ -60,7 +65,7 @@ public class Vibe
 {
     public float currentValue = 50;
     public float maxValue = 100f;
-    public float reduceValue = .95f;
+    public float reduceValue;
     public float reduceMultiplier = .45f;
 
     public bool isFull;
@@ -104,15 +109,15 @@ public class Vibe
                 
                 if (!_isDazeState)
                 {
-                    reduceMultiplier += 8f;
+                    reduceMultiplier += 2f;
                     GameManager.Instance.player.StartDazeState();
                     void DelayDazeEnding()
                     {
                         GameManager.Instance.player.EndDazeState();
                         _isDazeState = false;
-                        reduceMultiplier -= 8f;
+                        reduceMultiplier -= 2f;
                     }
-                    DelayUtility.ExecuteAfterSeconds(DelayDazeEnding, 4f, true);
+                    DelayUtility.ExecuteAfterSeconds(DelayDazeEnding, 1.75f, true);
                     _isDazeState = true;
                 }
             }

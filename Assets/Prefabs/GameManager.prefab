@@ -181,14 +181,25 @@ MonoBehaviour:
   vibe:
     currentValue: 50
     maxValue: 100
-    reduceValue: 1
-    reduceMultiplier: 0.45
+    reduceValue: 1111
+    reduceMultiplier: 0.3
     isFull: 0
     isHungry: 0
   danger:
     currentDanger: 0.2
   isGameOver: 0
-  allNPCs: []
+  vibeReduceDefault: 0.4
+  vibeReduceMultiplierDefault: 0.3
+  allNPCs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &8064145989428568686
 GameObject:
   m_ObjectHideFlags: 0

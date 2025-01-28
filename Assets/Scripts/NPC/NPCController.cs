@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
@@ -15,6 +16,7 @@ public class NPCController : MonoBehaviour
     public GameObject afterPopZone;
     public GameObject patrolZone;//random açılacak olan patrol küresi
     public GameObject patrolIndicator;
+    public GameObject hahaObj;
 
     public MMF_Player patrolFeedback;//TODO: Feedbacks => SetActive(true) - ToDestination 15f - Pause 5sn -  ToDestination 1.5f - SetActive(false)
 
@@ -27,6 +29,8 @@ public class NPCController : MonoBehaviour
     public float minPatrolTimer = 15f, maxPatrolTimer = 25f;
 
     public float eatHealAmount = 10f;
+    public float hahaChance = 0.01f;
+    public bool isLaughing = false;
 
     public bool isAlerted;//kırmızı bubble animasyonu için alertValue artmaya başlasın mı?
     private bool _isRandomized;
@@ -54,6 +58,12 @@ public class NPCController : MonoBehaviour
 
     private void Update()
     {
+        if (Random.value < hahaChance && !isLaughing)
+        {
+            isLaughing = true;
+            StartCoroutine(HahaActivate());
+        }
+        
         AfterAlert();
 
         RandomizeAlert();
@@ -145,7 +155,7 @@ public class NPCController : MonoBehaviour
             {
                 float chance = Random.Range(0.0f, 1.0f);
 
-                if (chance <= GetCurrentMaxChance())//chance
+                if (chance <= GetCurrentMaxChance()/2)//chance
                 {
                     otherNearNPCs[rand].isAlerted = true;
                     GameManager.Instance.danger.currentDanger++;
@@ -188,6 +198,16 @@ public class NPCController : MonoBehaviour
             currentDelayCd = Random.Range(5, 15);
             DelayUtility.ExecuteAfterSeconds(ResetBool, 0.5f, true);
         }
+    }
+
+    private IEnumerator HahaActivate()
+    {
+        hahaObj.SetActive(true);
+        
+        yield return new WaitForSeconds(1.5f);
+
+        isLaughing = false;
+        hahaObj.SetActive(false);
     }
 
     public void PlayerDied()
